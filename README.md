@@ -1,6 +1,4 @@
 # Clock-API
-Clock API in python flask that allows user to check the current time in timezone of their choosing or check what time it will be later.
-
 Purpose: Gives client the current time in various formats and the time at certain time in the future (ex: 4 hours from now). User can specify the timezone.
 
 Optional arguments supplied by client:
