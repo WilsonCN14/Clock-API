@@ -15,6 +15,7 @@ A list of all timezones is at https://gist.github.com/heyalexej/8bf688fd67d7199b
   - Central time is 'America/Chicago'
   - Eastern time is 'America/New_York
 
+
 There are 8 different endpoints (see list below) so you can choose the format of the time. Current gives the current time and updated gives the future time. HMS displays the time in Hours:Minutes:Seconds and HM dislays the time in Hours:Minutes. 12 gives the time in AM or PM while 24 gives the military time. 
 
 List of all endpoints:
@@ -26,6 +27,7 @@ List of all endpoints:
   - updated_HSM_24
   - updated_HM_12
   - updated_HM_24
+
 
 For example, let's say I want the time four hours from now in the central time zone
   - The url would be http://localhost:5000/?timezone=America/Chicago&hours=4
