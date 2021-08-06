@@ -61,8 +61,8 @@ def clock():
     updated_date = datetime.now(tz) + timedelta(seconds = total_seconds)
     updated_HMS_12 = updated_date.strftime("%I:%M:%S %p")
     updated_HMS_24 = updated_date.strftime("%H:%M:%S")
-    updated_HM_12 = current_date.strftime("%I:%M %p")
-    updated_HM_24 = current_date.strftime("%H:%M")
+    updated_HM_12 = updated_date.strftime("%I:%M %p")
+    updated_HM_24 = updated_date.strftime("%H:%M")
 
     # Add times to results JSON
     result = {}
