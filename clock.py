@@ -18,46 +18,38 @@ app = flask.Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Purpose: Returns the current time in Hours:Minutes:Seconds
-# Returns {"time": current_time}
+# Returns: Key-pairs with format {"type of time": time}
 @app.route('/', methods=['GET'])
 def clock():
-    # Check for timezone supplied by client; default to 'America/Chicago'
+    # Default values
+    timezone = 'America/Chicago'
+    hours = 0
+    minutes = 0
+    seconds = 0
+
+    # Check if user supplied arguments overriding default values
     if 'timezone' in request.args:
-        requested_tz = request.args['timezone']
-    else:
-        requested_tz = 'America/Chicago'
-
-    # Check for hours supplied by client; default to 0
+        timezone = request.args['timezone']
     if 'hours' in request.args:
-        requested_hours = int(request.args['hours'])
-    else:
-        requested_hours = 0
-
-    # Check for minutes supplied by client; default to 0
+        hours = int(request.args['hours'])
     if 'minutes' in request.args:
-        requested_minutes = int(request.args['minutes'])
-    else:
-        requested_minutes = 0
-
-    # Check for seconds supplied by client; default to 0
+        minutes = int(request.args['minutes'])
     if 'seconds' in request.args:
-        requested_seconds = int(request.args['seconds'])
-    else:
-        requested_seconds = 0
+        seconds = int(request.args['seconds'])
 
     # Convert all the requested time into seconds
-    total_seconds = (requested_hours * 60 * 60) + (requested_minutes * 60) + requested_seconds
+    total_seconds = (hours * 60 * 60) + (minutes * 60) + seconds
 
     # Calculate current time
-    tz = pytz.timezone(requested_tz)
+    tz = pytz.timezone(timezone)
     current_date = datetime.now(tz)
     current_HMS_12 = current_date.strftime("%I:%M:%S %p")
     current_HMS_24 = current_date.strftime("%H:%M:%S")
     current_HM_12 = current_date.strftime("%I:%M %p")
     current_HM_24 = current_date.strftime("%H:%M")
 
-    # Calculate the time that will be sent
-    tz = pytz.timezone(requested_tz)
+    # Calculate the future time
+    tz = pytz.timezone(timezone)
     updated_date = datetime.now(tz) + timedelta(seconds = total_seconds)
     updated_HMS_12 = updated_date.strftime("%I:%M:%S %p")
     updated_HMS_24 = updated_date.strftime("%H:%M:%S")
@@ -75,7 +67,6 @@ def clock():
     result['updated_HM_12'] = updated_HM_12
     result['updated_HM_24'] = updated_HM_24
 
-    # Return results
     return jsonify(result)
 
 if __name__ == "__main__":
